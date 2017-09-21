@@ -1,0 +1,27 @@
+main {
+  position: absolute;
+  top: 64px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+
+  md-list {
+    padding-top: 0;
+  }
+}
+
+.combatant {
+  &.active {
+    background-color: lightblue;
+  }
+  .hp-warning {
+    color: red;
+  }
+}
+
+.next-combatant-fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}

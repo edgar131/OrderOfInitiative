@@ -1,0 +1,60 @@
+<header>
+  <md-toolbar color="primary">
+      <span>
+        Order of Initiative
+      </span>
+  </md-toolbar>
+  <div layout="row" id="controls">
+   <!-- <button md-raised-button (click)="addCombatant($event)">
+      <md-icon color="primary">add_box</md-icon>
+      Combatant
+    </button>
+    <button md-raised-button (click)="saveParty($event)">
+      <md-icon color="primary">group_add</md-icon>
+      Party
+    </button>
+    <button md-raised-button (click)="next($event)">
+      <md-icon color="primary">play_circle_outline</md-icon>
+      Next
+    </button>-->
+  </div>
+</header>
+<main flex>
+  <md-list>
+    <ng-container *ngFor="let combatant of combatants | orderBy:'-combat.initiative':'-data.stats.dex'; let index = index;">
+      <md-list-item class="combatant" [class.active]="index === activeIndex">
+        <h3 mdLine>
+          {{combatant.data.name}}
+          <span (click)="updateHP(combatant)" [class.hp-warning]="combatant.combat.hp <= 0">({{combatant.combat.hp}}/{{combatant.data.maxhp}})</span>
+        </h3>
+        <p mdLine>INIT: {{combatant.combat.initiative}}<ng-container *ngIf="combatant.data.ac">, AC: {{combatant.data.ac}}</ng-container></p>
+        <p mdLine>
+          <span *ngFor="let stat of objectKeys(combatant.data.stats)" [hidden]="!stat">
+            {{stat | uppercase}}: {{calcModAsString(combatant.data.stats[stat])}}
+          </span>
+        </p>
+        <button md-icon-button [mdMenuTriggerFor]="combatantMenu">
+          <md-icon>more_vert</md-icon>
+        </button>
+        <md-menu #combatantMenu="mdMenu">
+          <button md-menu-item (click)="editCombatant($event, combatant)">
+            <md-icon>mode_edit</md-icon>
+            <span>Edit</span>
+          </button>
+          <button md-menu-item (click)="removeCombatant($event, combatant)">
+            <md-icon>close</md-icon>
+            <span>Remove</span>
+          </button>
+          <button md-menu-item (click)="cloneCombatant($event, combatant)">
+            <md-icon>content_copy</md-icon>
+            <span>Copy</span>
+          </button>
+        </md-menu>
+      </md-list-item>
+      <md-divider></md-divider>
+    </ng-container>
+  </md-list>
+</main>
+<button md-fab color="warn" class="next-combatant-fab" (click)="nextCombatant()">
+  <md-icon>play_arrow</md-icon>
+</button>
