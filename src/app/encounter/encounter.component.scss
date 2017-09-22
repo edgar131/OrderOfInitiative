@@ -1,11 +1,24 @@
+header {
+  .turn-count {
+    margin-left: 20px;
+  }
+  .toolbar-spacer {
+    flex: 1 1 auto;
+  }
+}
 main {
   position: absolute;
-  top: 64px;
+  top: 128px;
   bottom: 0;
   left: 0;
   right: 0;
   overflow-y: auto;
 
+  md-sidenav-container, md-list {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
   md-list {
     padding-top: 0;
   }
@@ -17,6 +30,14 @@ main {
   }
   .hp-warning {
     color: red;
+  }
+  .combatant-name {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  .combatant-initiative {
+    opacity: .6;
+    font-style: italic;
   }
 }
 

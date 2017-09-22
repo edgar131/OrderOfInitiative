@@ -1,3 +1,14 @@
-<p>
-  modify-hp-dialog works!
-</p>
+<div md-dialog-content>
+  <md-form-field>
+    <h3>Damage</h3>
+    <input mdInput type="number" [(ngModel)]="damage">
+  </md-form-field>
+  <md-form-field>
+    <h3>Heal</h3>
+    <input mdInput type="number" [(ngModel)]="heal">
+  </md-form-field>
+</div>
+<div md-dialog-actions>
+  <button md-button (click)="onSaveClick()">Save</button>
+  <button md-button (click)="onCancelClick()">Cancel</button>
+</div>
