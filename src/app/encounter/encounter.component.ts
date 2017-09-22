@@ -40,13 +40,14 @@ export class EncounterComponent implements OnInit {
       this.roundCount++;
     }
   }
-  updateHP(combatant) {
+
+  updateHP(combatant: Combatant) {
     this.dialog.open(ModifyHpDialogComponent).afterClosed().subscribe(result => {
       combatant.combat.hp = combatant.combat.hp + result.heal - result.damage;
     });
 
   }
-  removeCombatant(combatant) {
+  removeCombatant(combatant: Combatant) {
     this.dialog.open(RemoveCombatantDialogComponent, {data: combatant}).afterClosed().subscribe(result => {
       if (result) {
         const idx = this.combatants.indexOf(combatant);
@@ -62,11 +63,11 @@ export class EncounterComponent implements OnInit {
     });
   }
 
-  editCombatant($event, combatant) {
+  editCombatant(combatant: Combatant) {
 
   }
 
-  cloneCombatant(combatant) {
+  cloneCombatant(combatant: Combatant) {
     this.combatants.push({...combatant});
   }
 

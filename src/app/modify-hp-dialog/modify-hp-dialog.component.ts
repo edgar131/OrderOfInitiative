@@ -16,21 +16,11 @@ export class ModifyHpDialogComponent implements OnInit {
 
   onSaveClick() {
     this.dialogRef.close({
-      damage: this.damage,
-      heal: this.heal
+      damage: this.damage ? this.damage : 0,
+      heal: this.heal ? this.heal : 0
     });
   }
 
-  onCancelClick() {
-    this.dialogRef.close({
-      damage: 0,
-      heal: 0
-    });
-  }
-
-  ngOnInit() {
-    this.damage = 0;
-    this.heal = 0;
-  }
+  ngOnInit() {}
 
 }
