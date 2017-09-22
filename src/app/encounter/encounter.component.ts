@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
+import {MdDialog} from '@angular/material';
 import {ModifyHpDialogComponent} from '../modify-hp-dialog/modify-hp-dialog.component';
-import Utils from '../util';
-import Combatant from '../model/Combatant';
-import CombatantInfo from '../model/CombatantInfo';
-import Stats from '../model/Stats';
-import CombatData from "../model/CombatData";
-import {RemoveCombatantDialogComponent} from "../remove-combatant-dialog/remove-combatant-dialog.component";
+import Utils from '../shared/util';
+import Combatant from '../shared/Combatant';
+import CombatantInfo from '../shared/CombatantInfo';
+import Stats from '../shared/Stats';
+import CombatData from '../shared/CombatData';
+import {RemoveCombatantDialogComponent} from '../remove-combatant-dialog/remove-combatant-dialog.component';
 
 
 @Component({
@@ -17,6 +17,8 @@ import {RemoveCombatantDialogComponent} from "../remove-combatant-dialog/remove-
 export class EncounterComponent implements OnInit {
 
   combatants: Combatant[];
+  infoCombatant: Combatant;
+  newCombatant: Combatant;
   turnCount: number;
   roundCount: number;
   activeIndex: number;
@@ -39,6 +41,7 @@ export class EncounterComponent implements OnInit {
       this.activeIndex = 0;
       this.roundCount++;
     }
+    this.infoCombatant = this.combatants[this.activeIndex];
   }
 
   updateHP(combatant: Combatant) {
@@ -47,6 +50,16 @@ export class EncounterComponent implements OnInit {
     });
 
   }
+
+  openNewCombatantNav(nav) {
+    this.newCombatant = new Combatant('');
+    nav.toggle();
+  }
+
+  addNewCombatant(combatant) {
+    this.combatants.push(combatant);
+  }
+
   removeCombatant(combatant: Combatant) {
     this.dialog.open(RemoveCombatantDialogComponent, {data: combatant}).afterClosed().subscribe(result => {
       if (result) {

@@ -7,10 +7,11 @@ import { EncounterComponent } from './encounter/encounter.component';
 import { MdButtonModule, MdDialogModule, MdIconModule, MdToolbarModule,
          MdTooltipModule, MdAutocompleteModule, MdListModule, MdMenuModule,
          MdInputModule, MdSidenavModule} from '@angular/material';
-import { InitiativeOrderPipe } from './initiative-order-pipe';
+import { InitiativeOrderPipe } from './encounter/initiative-order-pipe';
 import { FormsModule } from '@angular/forms';
 import { ModifyHpDialogComponent } from './modify-hp-dialog/modify-hp-dialog.component';
 import { RemoveCombatantDialogComponent } from './remove-combatant-dialog/remove-combatant-dialog.component';
+import { EditCombatantFormComponent } from './edit-combatant-form/edit-combatant-form.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { RemoveCombatantDialogComponent } from './remove-combatant-dialog/remove
     InitiativeOrderPipe,
     EncounterComponent,
     ModifyHpDialogComponent,
-    RemoveCombatantDialogComponent
+    RemoveCombatantDialogComponent,
+    EditCombatantFormComponent
   ],
   imports: [
     BrowserModule,
