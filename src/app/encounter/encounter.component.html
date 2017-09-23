@@ -24,14 +24,12 @@
   <md-sidenav-container>
     <md-list>
       <ng-container *ngFor="let combatant of combatants | initiativeOrder; let index = index;">
-        <md-list-item class="combatant" [class.active]="index === activeIndex">
+        <md-list-item class="combatant" [class.active]="combatant.id === activeCombatantId">
           <h2 class="combatant-name" mdLine>
             {{combatant.name}}
             <span (click)="updateHP(combatant)" [class.hp-warning]="combatant.combat.hp <= 0">({{combatant.combat.hp}}/{{combatant.data.maxhp}})</span>
           </h2>
-          <p class="combatant-initiative" mdLine>INIT: {{combatant.combat.initiative}}
-            <ng-container *ngIf="combatant.data.ac">, AC: {{combatant.data.ac}}</ng-container>
-          </p>
+          <p class="combatant-initiative" mdLine>INIT: {{combatant.combat.initiative}}<ng-container *ngIf="combatant.data.ac">, AC: {{combatant.data.ac}}</ng-container></p>
           <p mdLine class="combatant-stats">
             <span *ngFor="let stat of objectKeys(combatant.data.stats)" [hidden]="stat !== undefined">
               {{stat | uppercase}}: {{calcModAsString(combatant.data.stats[stat])}}
@@ -44,7 +42,7 @@
             <md-icon>more_vert</md-icon>
           </button>
           <md-menu #combatantMenu="mdMenu">
-            <button md-menu-item (click)="editCombatant($event, combatant)">
+            <button md-menu-item (click)="infoCombatant=combatant;combatantInfoNav.open()">
               <md-icon>mode_edit</md-icon>
               <span>Edit</span>
             </button>

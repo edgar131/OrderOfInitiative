@@ -22,6 +22,7 @@ export class EncounterComponent implements OnInit {
   turnCount: number;
   roundCount: number;
   activeIndex: number;
+  activeCombatantId: string;
   calcModAsString = Utils.calcModAsString;
   objectKeys = Object.keys;
 
@@ -35,20 +36,26 @@ export class EncounterComponent implements OnInit {
   }
   nextCombatant() {
     this.turnCount++;
-    if (this.activeIndex < this.combatants.length - 1) {
-      this.activeIndex++;
+    if (!this.activeCombatantId) {
+      this.activeCombatantId = this.combatants[0].id;
     } else {
-      this.activeIndex = 0;
-      this.roundCount++;
+      const currentIndex = this.combatants.findIndex(combatant => combatant.id === this.activeCombatantId);
+      if (currentIndex + 1 >= this.combatants.length) {
+        this.activeCombatantId = this.combatants[0].id;
+        this.roundCount ++;
+      } else {
+        this.activeCombatantId = this.combatants[currentIndex + 1].id;
+      }
     }
-    this.infoCombatant = this.combatants[this.activeIndex];
+    this.infoCombatant = this.combatants.find(combatant => combatant.id === this.activeCombatantId);
   }
 
   updateHP(combatant: Combatant) {
     this.dialog.open(ModifyHpDialogComponent).afterClosed().subscribe(result => {
-      combatant.combat.hp = combatant.combat.hp + result.heal - result.damage;
+      if (result) {
+        combatant.combat.hp = combatant.combat.hp + result.heal - result.damage;
+      }
     });
-
   }
 
   openNewCombatantNav(nav) {
@@ -63,21 +70,20 @@ export class EncounterComponent implements OnInit {
   removeCombatant(combatant: Combatant) {
     this.dialog.open(RemoveCombatantDialogComponent, {data: combatant}).afterClosed().subscribe(result => {
       if (result) {
-        const idx = this.combatants.indexOf(combatant);
+        const idx: number = this.combatants.indexOf(combatant);
+        const isCurrentCombatant: boolean = combatant.id === this.activeCombatantId;
         this.combatants.splice(idx, 1);
-        if (idx === this.activeIndex) {
+        if (isCurrentCombatant) {
           this.turnCount++;
-        }
-        if (idx >= this.combatants.length) {
-          this.activeIndex = 0;
-          this.roundCount++;
+          if (idx >= this.combatants.length) {
+            this.roundCount++;
+            this.activeCombatantId = this.combatants[0].id;
+          } else {
+            this.activeCombatantId = this.combatants[idx].id;
+          }
         }
       }
     });
-  }
-
-  editCombatant(combatant: Combatant) {
-
   }
 
   cloneCombatant(combatant: Combatant) {
