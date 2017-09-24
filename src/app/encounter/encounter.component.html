@@ -24,7 +24,7 @@
   <md-sidenav-container>
     <md-list>
       <ng-container *ngFor="let combatant of combatants | initiativeOrder; let index = index;">
-        <md-list-item class="combatant" [class.active]="combatant.id === activeCombatantId">
+        <md-list-item class="combatant" [class.active]="combatant === activeCombatant">
           <h2 class="combatant-name" mdLine>
             {{combatant.name}}
             <span (click)="updateHP(combatant)" [class.hp-warning]="combatant.combat.hp <= 0">({{combatant.combat.hp}}/{{combatant.data.maxhp}})</span>
@@ -71,7 +71,7 @@
       <ng-container *ngIf="newCombatant">
         <app-edit-combatant-form [(combatant)]="newCombatant"></app-edit-combatant-form>
         <button type="submit" md-raised-button [disabled]="!newCombatant.name || !newCombatant.combat.initiative" color="primary"
-                (click)="addNewCombatant(newCombatant);newCombatantNav.toggle();">
+                (click)="addCombatant(newCombatant);newCombatantNav.toggle();">
           <span>Add</span>
         </button>
         <button md-raised-button color="warn" (click)="newCombatantNav.toggle()">

@@ -22,34 +22,52 @@ export class EncounterComponent implements OnInit {
   turnCount: number;
   roundCount: number;
   activeIndex: number;
-  activeCombatantId: string;
+  activeCombatant: Combatant;
   calcModAsString = Utils.calcModAsString;
   objectKeys = Object.keys;
 
   constructor(public dialog: MdDialog) {
   }
 
-  modHP(combatant, damage) {
-    if (!isNaN(damage)) {
-      combatant.combat.hp += damage;
-    }
-  }
   nextCombatant() {
     this.turnCount++;
-    if (!this.activeCombatantId) {
-      this.activeCombatantId = this.combatants[0].id;
+    if (!this.activeCombatant) {
+      this.activeCombatant = this.combatants[0];
     } else {
-      const currentIndex = this.combatants.findIndex(combatant => combatant.id === this.activeCombatantId);
+      const currentIndex = this.combatants.indexOf(this.activeCombatant);
       if (currentIndex + 1 >= this.combatants.length) {
-        this.activeCombatantId = this.combatants[0].id;
+        this.activeCombatant = this.combatants[0];
         this.roundCount ++;
       } else {
-        this.activeCombatantId = this.combatants[currentIndex + 1].id;
+        this.activeCombatant = this.combatants[currentIndex + 1];
       }
     }
-    this.infoCombatant = this.combatants.find(combatant => combatant.id === this.activeCombatantId);
+    this.infoCombatant = this.activeCombatant;
   }
-
+  addCombatant(combatant) {
+    this.combatants.push(combatant);
+  }
+  removeCombatant(combatant: Combatant) {
+    this.dialog.open(RemoveCombatantDialogComponent, {data: combatant}).afterClosed().subscribe(result => {
+      if (result) {
+        const idx: number = this.combatants.indexOf(combatant);
+        const isCurrentCombatant: boolean = combatant === this.activeCombatant;
+        this.combatants.splice(idx, 1);
+        if (isCurrentCombatant) {
+          this.turnCount++;
+          if (idx >= this.combatants.length) {
+            this.roundCount++;
+            this.activeCombatant = this.combatants[0];
+          } else {
+            this.activeCombatant = this.combatants[idx];
+          }
+        }
+      }
+    });
+  }
+  cloneCombatant(combatant: Combatant) {
+    this.combatants.push(Combatant.copy(combatant));
+  }
   updateHP(combatant: Combatant) {
     this.dialog.open(ModifyHpDialogComponent).afterClosed().subscribe(result => {
       if (result) {
@@ -61,33 +79,6 @@ export class EncounterComponent implements OnInit {
   openNewCombatantNav(nav) {
     this.newCombatant = new Combatant('');
     nav.toggle();
-  }
-
-  addNewCombatant(combatant) {
-    this.combatants.push(combatant);
-  }
-
-  removeCombatant(combatant: Combatant) {
-    this.dialog.open(RemoveCombatantDialogComponent, {data: combatant}).afterClosed().subscribe(result => {
-      if (result) {
-        const idx: number = this.combatants.indexOf(combatant);
-        const isCurrentCombatant: boolean = combatant.id === this.activeCombatantId;
-        this.combatants.splice(idx, 1);
-        if (isCurrentCombatant) {
-          this.turnCount++;
-          if (idx >= this.combatants.length) {
-            this.roundCount++;
-            this.activeCombatantId = this.combatants[0].id;
-          } else {
-            this.activeCombatantId = this.combatants[idx].id;
-          }
-        }
-      }
-    });
-  }
-
-  cloneCombatant(combatant: Combatant) {
-    this.combatants.push({...combatant});
   }
 
   mockCombatants(): Combatant[] {

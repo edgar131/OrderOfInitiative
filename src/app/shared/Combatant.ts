@@ -19,10 +19,16 @@ export default class Combatant {
     });
   }
 
+  public static copy(combatant: Combatant): Combatant {
+    return new Combatant(combatant.name, combatant.combat, combatant.data);
+  }
+
   constructor(name: string, combat: CombatData = new CombatData(), data: CombatantInfo = new CombatantInfo()) {
     this.id = Combatant.generateUUID();
     this.name = name;
     this.combat = combat;
     this.data = data;
   }
+
+
 }
