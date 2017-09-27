@@ -2,10 +2,10 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MdDialog} from '@angular/material';
 import {ModifyHpDialogComponent} from '../modify-hp-dialog/modify-hp-dialog.component';
 import Utils from '../shared/util';
-import Combatant from '../shared/Combatant';
-import CombatantInfo from '../shared/CombatantInfo';
-import Stats from '../shared/Stats';
-import CombatData from '../shared/CombatData';
+import {Combatant} from '../shared/Combatant';
+import {CombatantInfo} from '../shared/CombatantInfo';
+import {Stats} from '../shared/Stats';
+import {CombatData} from '../shared/CombatData';
 import {RemoveCombatantDialogComponent} from '../remove-combatant-dialog/remove-combatant-dialog.component';
 
 
@@ -84,7 +84,7 @@ export class EncounterComponent implements OnInit {
     });
   }
   cloneCombatant(combatant: Combatant) {
-    this.combatants.push(combatant.clone());
+    this.combatants.push(Utils.copyCombatant(combatant));
   }
   updateHP(combatant: Combatant) {
     this.dialog.open(ModifyHpDialogComponent).afterClosed().subscribe(result => {
@@ -95,19 +95,70 @@ export class EncounterComponent implements OnInit {
   }
 
   mockCombatants(): Combatant[] {
-    const combatant1 = new Combatant('Vrell',
-      new CombatData(10, 22),
-      new CombatantInfo(16, 22, new Stats(8, 16, 14, 12, 15, 10)));
-    const combatant2 = new Combatant('Shin',
-      new CombatData(18, 16),
-      new CombatantInfo(18, 16, new Stats(16, 12, 14, 10, 17, 12)));
-    const combatant3 = new Combatant('Nari',
-      new CombatData(2, 17),
-      new CombatantInfo(14, 17, new Stats(16, 12, 14, 10, 17, 12)));
+    const combatant1: Combatant = {
+      id: Utils.generateUUID(),
+      name: 'Vrell',
+      combat: {
+        initiative: 10,
+        hp: 22
+      },
+      data: {
+        ac: 16,
+        maxhp: 22,
+        stats: {
+          str: 8,
+          dex: 16,
+          con: 14,
+          int: 12,
+          wis: 15,
+          cha: 10
+        }
+      }
+    };
+    const combatant2: Combatant = {
+      id: Utils.generateUUID(),
+      name: 'Shin',
+      combat: {
+        initiative: 18,
+        hp: 16
+      },
+      data: {
+        ac: 18,
+        maxhp: 16,
+        stats: {
+          str: 16,
+          dex: 12,
+          con: 14,
+          int: 10,
+          wis: 17,
+          cha: 12
+        }
+      }
+    };
+    const combatant3: Combatant = {
+      id: Utils.generateUUID(),
+      name: 'Nari',
+      combat: {
+        initiative: 2,
+        hp: 17
+      },
+      data: {
+        ac: 18,
+        maxhp: 16,
+        stats: {
+          str: 16,
+          dex: 12,
+          con: 14,
+          int: 10,
+          wis: 17,
+          cha: 12
+        }
+      }
+    };
     return [combatant1, combatant2, combatant3];
   }
   ngOnInit() {
-    // this.combatants = this.mockCombatants();
+    this.combatants = this.mockCombatants();
     this.activeIndex = -1;
     this.roundCount = 1;
     this.turnCount = 0;

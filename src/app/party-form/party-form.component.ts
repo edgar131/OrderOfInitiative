@@ -1,8 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Party} from '../shared/Party';
-import Combatant from '../shared/Combatant';
+import {Combatant} from '../shared/Combatant';
 import {DeletePartyDialogComponent} from '../delete-party-dialog/delete-party-dialog.component';
 import {MdDialog} from '@angular/material';
+import Utils from '../shared/util';
 
 @Component({
   selector: 'app-party-form',
@@ -24,9 +25,12 @@ export class PartyFormComponent implements OnInit {
   }
 
   save() {
-    const party: Party = new Party(this.newPartyName, this.combatants.slice(0));
-    party.combatants.forEach(combatant => {
-      combatant = new Combatant(combatant.name, undefined, combatant.data);
+    const party: Party = {
+      name: this.newPartyName,
+      combatants: []
+    };
+    this.combatants.forEach(combatant => {
+      party.combatants.push(Utils.copyCombatant(combatant));
     });
     this.parties.push(party);
     localStorage.setItem(PartyFormComponent.PARTIES_KEY, JSON.stringify(this.parties));
@@ -37,7 +41,7 @@ export class PartyFormComponent implements OnInit {
   add() {
     const combatants: Combatant[] = [];
     this.selectedParty.combatants.forEach(combatant => {
-      combatants.push(JSON.parse(JSON.stringify(new Combatant(combatant.name, combatant.combat, combatant.data))));
+      combatants.push(Utils.copyCombatant(combatant));
     });
     this.onAdd.emit(combatants);
     this.reset();

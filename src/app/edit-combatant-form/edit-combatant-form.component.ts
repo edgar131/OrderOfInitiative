@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import Combatant from '../shared/Combatant';
+import {Combatant} from '../shared/Combatant';
 import Utils from '../shared/util';
 
 @Component({
@@ -20,7 +20,7 @@ export class EditCombatantFormComponent implements OnInit {
   }
 
   private reset() {
-    this.combatant = new Combatant('');
+    this.combatant = Utils.createNewCombatant();
   }
 
   addCombatant() {

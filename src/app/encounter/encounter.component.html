@@ -60,9 +60,6 @@
         </md-list-item>
         <md-divider></md-divider>
       </ng-container>
-      <button md-fab color="warn" class="next-combatant-fab" (click)="nextCombatant()">
-        <md-icon>play_arrow</md-icon>
-      </button>
     </md-list>
     <md-sidenav #combatantInfoNav mode="side" [opened]="infoCombatant" position="end" class="combatant-info-sidenav">
       <ng-container *ngIf="infoCombatant">
@@ -76,4 +73,7 @@
                       (onAdd)="addCombatants($event)" (onSave)="newCombatantNav.close()" (onCancel)="newCombatantNav.close()"></app-party-form>
     </md-sidenav>
   </md-sidenav-container>
+  <button md-fab color="warn" class="next-combatant-fab" (click)="nextCombatant()">
+    <md-icon>play_arrow</md-icon>
+  </button>
 </main>

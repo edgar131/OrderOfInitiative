@@ -1,4 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
+import {Combatant} from '../shared/Combatant';
 @Pipe({
   name: 'initiativeOrder',
   pure: false
@@ -6,7 +7,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 
 export class InitiativeOrderPipe implements PipeTransform {
   transform(value): any {
-    value.sort((a, b) => {
+    value.sort((a: Combatant, b: Combatant) => {
       const aInitiative = a.combat.initiative,
         aDex = a.data.stats.dex,
         bInitiative = b.combat.initiative,
