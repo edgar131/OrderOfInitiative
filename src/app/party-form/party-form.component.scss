@@ -1,0 +1,19 @@
+.mat-form-field {
+  width: auto;
+}
+
+.full-width {
+  width: 100%;
+}
+
+md-select {
+  margin-bottom: 5px;
+}
+
+table {
+  tr > td:first-child {
+    font-weight: bold;
+    padding-right: 20px;
+    text-align: right;
+  }
+}

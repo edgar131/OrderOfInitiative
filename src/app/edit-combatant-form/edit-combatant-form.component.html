@@ -59,4 +59,12 @@
       </md-form-field>
     </td>
   </table>
+  <ng-container *ngIf="mode === 'add'">
+    <button type="submit" md-raised-button (click)="addCombatant()" [disabled]="!combatant.name || !combatant.combat.initiative" color="primary">
+      <span>Add</span>
+    </button>
+    <button md-raised-button (click)="cancel()" color="warn">
+      <span>Cancel</span>
+    </button>
+  </ng-container>
 </form>

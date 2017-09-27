@@ -12,10 +12,10 @@
       Turn: {{turnCount}}
     </div>
     <span class="toolbar-spacer"></span>
-    <button mdTooltip="Add Combatant" md-icon-button (click)="openNewCombatantNav(newCombatantNav)">
+    <button mdTooltip="Add Combatant" md-icon-button (click)="newCombatantMode = 'individual'; newCombatantNav.open()">
       <md-icon>person_add</md-icon>
     </button>
-    <button mdTooltip="Add Party" md-icon-button>
+    <button mdTooltip="Add Party" md-icon-button (click)="newCombatantMode = 'party'; newCombatantNav.open()">
       <md-icon>group_add</md-icon>
     </button>
   </md-toolbar>
@@ -27,22 +27,24 @@
         <md-list-item class="combatant" [class.active]="combatant === activeCombatant">
           <h2 class="combatant-name" mdLine>
             {{combatant.name}}
-            <span (click)="updateHP(combatant)" [class.hp-warning]="combatant.combat.hp <= 0">({{combatant.combat.hp}}/{{combatant.data.maxhp}})</span>
+            <span class="hp" (click)="updateHP(combatant)" [class.hp-warning]="combatant.combat.hp <= 0">({{combatant.combat.hp}}/{{combatant.data.maxhp}})</span>
           </h2>
-          <p class="combatant-initiative" mdLine>INIT: {{combatant.combat.initiative}}<ng-container *ngIf="combatant.data.ac">, AC: {{combatant.data.ac}}</ng-container></p>
+          <p class="combatant-initiative" mdLine>INIT: {{combatant.combat.initiative}}
+            <ng-container *ngIf="combatant.data.ac">, AC: {{combatant.data.ac}}</ng-container>
+          </p>
           <p mdLine class="combatant-stats">
             <span *ngFor="let stat of objectKeys(combatant.data.stats)" [hidden]="stat !== undefined">
               {{stat | uppercase}}: {{calcModAsString(combatant.data.stats[stat])}}
             </span>
           </p>
-          <button md-icon-button (click)="infoCombatant=combatant;combatantInfoNav.open()">
+          <button md-icon-button (click)="viewCombatant(combatant)">
             <md-icon>search</md-icon>
           </button>
           <button md-icon-button [mdMenuTriggerFor]="combatantMenu">
             <md-icon>more_vert</md-icon>
           </button>
           <md-menu #combatantMenu="mdMenu">
-            <button md-menu-item (click)="infoCombatant=combatant;combatantInfoNav.open()">
+            <button md-menu-item (click)="editCombatant(combatant)">
               <md-icon>mode_edit</md-icon>
               <span>Edit</span>
             </button>
@@ -64,20 +66,14 @@
     </md-list>
     <md-sidenav #combatantInfoNav mode="side" [opened]="infoCombatant" position="end" class="combatant-info-sidenav">
       <ng-container *ngIf="infoCombatant">
-        <app-edit-combatant-form [(combatant)]="infoCombatant"></app-edit-combatant-form>
+        <app-edit-combatant-form [(combatant)]="infoCombatant" [mode]="combatantInfoMode"></app-edit-combatant-form>
       </ng-container>
     </md-sidenav>
     <md-sidenav #newCombatantNav mode="over" opened="false" position="start" class="new-combatant-sidenav">
-      <ng-container *ngIf="newCombatant">
-        <app-edit-combatant-form [(combatant)]="newCombatant"></app-edit-combatant-form>
-        <button type="submit" md-raised-button [disabled]="!newCombatant.name || !newCombatant.combat.initiative" color="primary"
-                (click)="addCombatant(newCombatant);newCombatantNav.toggle();">
-          <span>Add</span>
-        </button>
-        <button md-raised-button color="warn" (click)="newCombatantNav.toggle()">
-          <span>Cancel</span>
-        </button>
-      </ng-container>
+      <app-edit-combatant-form *ngIf="newCombatantMode === 'individual'" mode="add" (onAdd)="addCombatant($event);"
+                               (onCancel)="newCombatantNav.close()"></app-edit-combatant-form>
+      <app-party-form *ngIf="newCombatantMode === 'party'" [combatants]="combatants"
+                      (onAdd)="addCombatants($event)" (onSave)="newCombatantNav.close()" (onCancel)="newCombatantNav.close()"></app-party-form>
     </md-sidenav>
   </md-sidenav-container>
 </main>

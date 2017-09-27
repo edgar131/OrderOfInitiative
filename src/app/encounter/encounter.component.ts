@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MdDialog} from '@angular/material';
 import {ModifyHpDialogComponent} from '../modify-hp-dialog/modify-hp-dialog.component';
 import Utils from '../shared/util';
@@ -16,15 +16,18 @@ import {RemoveCombatantDialogComponent} from '../remove-combatant-dialog/remove-
 })
 export class EncounterComponent implements OnInit {
 
-  combatants: Combatant[];
+  @ViewChild('combatantInfoNav') combatantInfoNav;
+  @ViewChild('newCombatantNav') newCombatantNav;
+  combatants: Combatant[] = [];
   infoCombatant: Combatant;
-  newCombatant: Combatant;
   turnCount: number;
   roundCount: number;
   activeIndex: number;
   activeCombatant: Combatant;
   calcModAsString = Utils.calcModAsString;
   objectKeys = Object.keys;
+  combatantInfoMode: string;
+  newCombatantMode: string;
 
   constructor(public dialog: MdDialog) {
   }
@@ -44,8 +47,23 @@ export class EncounterComponent implements OnInit {
     }
     this.infoCombatant = this.activeCombatant;
   }
-  addCombatant(combatant) {
+  addCombatant(combatant: Combatant) {
     this.combatants.push(combatant);
+    this.newCombatantNav.close();
+  }
+  addCombatants(combatants: Combatant[]) {
+    this.combatants = this.combatants.concat(combatants);
+    this.newCombatantNav.close();
+  }
+  viewCombatant(combatant: Combatant) {
+    this.combatantInfoMode = 'edit';
+    this.infoCombatant = combatant;
+    this.combatantInfoNav.open();
+  }
+  editCombatant(combatant: Combatant) {
+    this.combatantInfoMode = 'edit';
+    this.infoCombatant = combatant;
+    this.combatantInfoNav.open();
   }
   removeCombatant(combatant: Combatant) {
     this.dialog.open(RemoveCombatantDialogComponent, {data: combatant}).afterClosed().subscribe(result => {
@@ -66,7 +84,7 @@ export class EncounterComponent implements OnInit {
     });
   }
   cloneCombatant(combatant: Combatant) {
-    this.combatants.push(Combatant.copy(combatant));
+    this.combatants.push(combatant.clone());
   }
   updateHP(combatant: Combatant) {
     this.dialog.open(ModifyHpDialogComponent).afterClosed().subscribe(result => {
@@ -74,11 +92,6 @@ export class EncounterComponent implements OnInit {
         combatant.combat.hp = combatant.combat.hp + result.heal - result.damage;
       }
     });
-  }
-
-  openNewCombatantNav(nav) {
-    this.newCombatant = new Combatant('');
-    nav.toggle();
   }
 
   mockCombatants(): Combatant[] {
@@ -94,7 +107,7 @@ export class EncounterComponent implements OnInit {
     return [combatant1, combatant2, combatant3];
   }
   ngOnInit() {
-    this.combatants = this.mockCombatants();
+    // this.combatants = this.mockCombatants();
     this.activeIndex = -1;
     this.roundCount = 1;
     this.turnCount = 0;

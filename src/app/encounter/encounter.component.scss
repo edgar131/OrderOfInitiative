@@ -36,6 +36,9 @@ main {
   &.active {
     background-color: lightblue;
   }
+  .hp {
+    cursor: pointer;
+  }
   .hp-warning {
     color: red;
   }

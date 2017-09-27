@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import Combatant from '../shared/Combatant';
 import Utils from '../shared/util';
 
@@ -10,13 +10,33 @@ import Utils from '../shared/util';
 export class EditCombatantFormComponent implements OnInit {
 
   @Input() combatant: Combatant;
-  @Input() editMode: boolean;
+  @Input() mode: string;
+  @Output() onAdd: EventEmitter<any> = new EventEmitter();
+  @Output() onCancel: EventEmitter<any> = new EventEmitter();
 
   calcModAsString = Utils.calcModAsString;
 
-  constructor() { }
+  constructor() {
+  }
+
+  private reset() {
+    this.combatant = new Combatant('');
+  }
+
+  addCombatant() {
+    this.onAdd.emit(this.combatant);
+    this.reset();
+  }
+
+  cancel() {
+    this.onCancel.emit();
+    this.reset();
+  }
 
   ngOnInit() {
+    if (!this.combatant) {
+      this.reset();
+    }
   }
 
 }
