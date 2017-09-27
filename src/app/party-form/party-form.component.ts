@@ -1,8 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
 import {Party} from '../shared/Party';
 import {Combatant} from '../shared/Combatant';
-import {DeletePartyDialogComponent} from '../delete-party-dialog/delete-party-dialog.component';
-import {MdDialog} from '@angular/material';
+import {MD_DIALOG_DATA, MdDialog} from '@angular/material';
 import Utils from '../shared/util';
 
 @Component({
@@ -73,4 +72,18 @@ export class PartyFormComponent implements OnInit {
       this.parties = storedParties;
     }
   }
+}
+
+@Component({
+  selector: 'app-delete-party-dialog',
+  template: `
+    <h1 md-dialog-title>Are you sure you wish to delete the party: "{{data.name}}"?</h1>
+    <div md-dialog-actions>
+      <button md-raised-button color="primary" [md-dialog-close]="true">Remove</button>
+      <button md-raised-button color="warn" [md-dialog-close]="false">Cancel</button>
+    </div>
+  `
+})
+export class DeletePartyDialogComponent {
+  constructor(@Inject(MD_DIALOG_DATA) public data: any) { }
 }

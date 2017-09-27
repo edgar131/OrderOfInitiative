@@ -3,17 +3,15 @@ import { NgModule} from '@angular/core';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { EncounterComponent } from './encounter/encounter.component';
+import { EncounterComponent, RemoveCombatantDialogComponent } from './encounter/encounter.component';
 import { MdButtonModule, MdDialogModule, MdIconModule, MdToolbarModule,
          MdTooltipModule, MdAutocompleteModule, MdListModule, MdMenuModule,
          MdInputModule, MdSidenavModule, MdSelectModule} from '@angular/material';
 import { InitiativeOrderPipe } from './encounter/initiative-order-pipe';
 import { FormsModule } from '@angular/forms';
 import { ModifyHpDialogComponent } from './modify-hp-dialog/modify-hp-dialog.component';
-import { RemoveCombatantDialogComponent } from './remove-combatant-dialog/remove-combatant-dialog.component';
 import { EditCombatantFormComponent } from './edit-combatant-form/edit-combatant-form.component';
-import { PartyFormComponent } from './party-form/party-form.component';
-import { DeletePartyDialogComponent } from './delete-party-dialog/delete-party-dialog.component';
+import { PartyFormComponent, DeletePartyDialogComponent } from './party-form/party-form.component';
 
 @NgModule({
   declarations: [

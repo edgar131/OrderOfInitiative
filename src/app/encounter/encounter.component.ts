@@ -1,12 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MdDialog} from '@angular/material';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {MD_DIALOG_DATA, MdDialog, MdDialogRef} from '@angular/material';
 import {ModifyHpDialogComponent} from '../modify-hp-dialog/modify-hp-dialog.component';
 import Utils from '../shared/util';
 import {Combatant} from '../shared/Combatant';
-import {CombatantInfo} from '../shared/CombatantInfo';
-import {Stats} from '../shared/Stats';
-import {CombatData} from '../shared/CombatData';
-import {RemoveCombatantDialogComponent} from '../remove-combatant-dialog/remove-combatant-dialog.component';
 
 
 @Component({
@@ -40,31 +36,36 @@ export class EncounterComponent implements OnInit {
       const currentIndex = this.combatants.indexOf(this.activeCombatant);
       if (currentIndex + 1 >= this.combatants.length) {
         this.activeCombatant = this.combatants[0];
-        this.roundCount ++;
+        this.roundCount++;
       } else {
         this.activeCombatant = this.combatants[currentIndex + 1];
       }
     }
     this.infoCombatant = this.activeCombatant;
   }
+
   addCombatant(combatant: Combatant) {
     this.combatants.push(combatant);
     this.newCombatantNav.close();
   }
+
   addCombatants(combatants: Combatant[]) {
     this.combatants = this.combatants.concat(combatants);
     this.newCombatantNav.close();
   }
+
   viewCombatant(combatant: Combatant) {
     this.combatantInfoMode = 'edit';
     this.infoCombatant = combatant;
     this.combatantInfoNav.open();
   }
+
   editCombatant(combatant: Combatant) {
     this.combatantInfoMode = 'edit';
     this.infoCombatant = combatant;
     this.combatantInfoNav.open();
   }
+
   removeCombatant(combatant: Combatant) {
     this.dialog.open(RemoveCombatantDialogComponent, {data: combatant}).afterClosed().subscribe(result => {
       if (result) {
@@ -83,9 +84,11 @@ export class EncounterComponent implements OnInit {
       }
     });
   }
+
   cloneCombatant(combatant: Combatant) {
     this.combatants.push(Utils.copyCombatant(combatant));
   }
+
   updateHP(combatant: Combatant) {
     this.dialog.open(ModifyHpDialogComponent).afterClosed().subscribe(result => {
       if (result) {
@@ -157,10 +160,26 @@ export class EncounterComponent implements OnInit {
     };
     return [combatant1, combatant2, combatant3];
   }
+
   ngOnInit() {
     this.combatants = this.mockCombatants();
     this.activeIndex = -1;
     this.roundCount = 1;
     this.turnCount = 0;
+  }
+}
+
+@Component({
+  selector: 'app-remove-combatant-dialog',
+  template: `
+    <h1 md-dialog-title>Are you sure you wish to remove {{data.name}} from the encounter?</h1>
+    <div md-dialog-actions>
+      <button md-raised-button color="primary" [md-dialog-close]="true">Remove</button>
+      <button md-raised-button color="warn" [md-dialog-close]="false">Cancel</button>
+    </div>
+  `,
+})
+export class RemoveCombatantDialogComponent {
+  constructor(@Inject(MD_DIALOG_DATA) public data: any) {
   }
 }
