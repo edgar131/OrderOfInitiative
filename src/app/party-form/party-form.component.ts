@@ -3,6 +3,7 @@ import {Party} from '../shared/Party';
 import {Combatant} from '../shared/Combatant';
 import {MD_DIALOG_DATA, MdDialog} from '@angular/material';
 import Utils from '../shared/util';
+import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
 
 @Component({
   selector: 'app-party-form',
@@ -37,6 +38,12 @@ export class PartyFormComponent implements OnInit {
     this.reset();
   }
 
+  overwrite() {
+    this.parties.splice(this.parties.indexOf(this.selectedParty), 1);
+    this.newPartyName = this.selectedParty.name;
+    this.save();
+  }
+
   add() {
     const combatants: Combatant[] = [];
     this.selectedParty.combatants.forEach(combatant => {
@@ -47,7 +54,12 @@ export class PartyFormComponent implements OnInit {
   }
 
   delete() {
-    this.dialog.open(DeletePartyDialogComponent, {data: this.selectedParty}).afterClosed().subscribe(result => {
+    this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        message: 'Are you sure you wish to delete the party: "' + this.selectedParty.name + '"?',
+        confirm_text: 'Delete'
+      }
+    }).afterClosed().subscribe(result => {
       if (result) {
         this.parties.splice(this.parties.indexOf(this.selectedParty), 1);
         localStorage.setItem(PartyFormComponent.PARTIES_KEY, JSON.stringify(this.parties));
@@ -72,18 +84,4 @@ export class PartyFormComponent implements OnInit {
       this.parties = storedParties;
     }
   }
-}
-
-@Component({
-  selector: 'app-delete-party-dialog',
-  template: `
-    <h1 md-dialog-title>Are you sure you wish to delete the party: "{{data.name}}"?</h1>
-    <div md-dialog-actions>
-      <button md-raised-button color="primary" [md-dialog-close]="true">Remove</button>
-      <button md-raised-button color="warn" [md-dialog-close]="false">Cancel</button>
-    </div>
-  `
-})
-export class DeletePartyDialogComponent {
-  constructor(@Inject(MD_DIALOG_DATA) public data: any) { }
 }

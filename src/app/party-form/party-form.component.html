@@ -26,20 +26,20 @@
         <td>{{combatant.data.maxhp ? combatant.data.maxhp : '?'}}</td>
       </tr>
     </table>
-    <div>
+  </ng-container>
+  <div>
+    <ng-container *ngIf="selectedParty && selectedParty.name">
       <button md-raised-button color="primary" (click)="add()">
         Add
+      </button>
+      <button md-raised-button color="primary" [disabled]="combatants.length <= 0" (click)="overwrite()">
+        Overwrite
       </button>
       <button md-raised-button color="accent" (click)="delete()">
         Delete
       </button>
-      <button md-raised-button color="warn" (click)="cancel()">
-        Cancel
-      </button>
-    </div>
-  </ng-container>
-  <div *ngIf="selectedParty === 'null'">
-    <button md-raised-button color="primary" (click)="save()">
+    </ng-container>
+    <button md-raised-button color="primary" [disabled]="!newPartyName || combatants.length <= 0" (click)="save()" *ngIf="selectedParty === 'null'">
       Save
     </button>
     <button md-raised-button color="warn" (click)="cancel()">

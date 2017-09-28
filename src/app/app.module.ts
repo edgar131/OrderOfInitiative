@@ -3,7 +3,7 @@ import { NgModule} from '@angular/core';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { EncounterComponent, RemoveCombatantDialogComponent } from './encounter/encounter.component';
+import { EncounterComponent } from './encounter/encounter.component';
 import { MdButtonModule, MdDialogModule, MdIconModule, MdToolbarModule,
          MdTooltipModule, MdAutocompleteModule, MdListModule, MdMenuModule,
          MdInputModule, MdSidenavModule, MdSelectModule} from '@angular/material';
@@ -11,7 +11,9 @@ import { InitiativeOrderPipe } from './encounter/initiative-order-pipe';
 import { FormsModule } from '@angular/forms';
 import { ModifyHpDialogComponent } from './modify-hp-dialog/modify-hp-dialog.component';
 import { EditCombatantFormComponent } from './edit-combatant-form/edit-combatant-form.component';
-import { PartyFormComponent, DeletePartyDialogComponent } from './party-form/party-form.component';
+import { PartyFormComponent } from './party-form/party-form.component';
+import { MonsterFilterPipe } from './edit-combatant-form/monster-filter.pipe';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -19,10 +21,10 @@ import { PartyFormComponent, DeletePartyDialogComponent } from './party-form/par
     InitiativeOrderPipe,
     EncounterComponent,
     ModifyHpDialogComponent,
-    RemoveCombatantDialogComponent,
     EditCombatantFormComponent,
     PartyFormComponent,
-    DeletePartyDialogComponent
+    MonsterFilterPipe,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +44,6 @@ import { PartyFormComponent, DeletePartyDialogComponent } from './party-form/par
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [ModifyHpDialogComponent, RemoveCombatantDialogComponent, DeletePartyDialogComponent]
+  entryComponents: [ModifyHpDialogComponent, ConfirmationDialogComponent]
 })
 export class AppModule { }

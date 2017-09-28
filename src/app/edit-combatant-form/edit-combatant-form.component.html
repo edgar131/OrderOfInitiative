@@ -1,6 +1,6 @@
 <form #combatantInfoForm>
-  <md-form-field floatPlaceholder="always" class="full-width">
-    <input name="name" mdInput placeholder="Name" [(ngModel)]="combatant.name" required>
+  <md-form-field class="full-width">
+    <input name="name" mdInput placeholder="Name" [(ngModel)]="combatant.name" required cdk-focus-region-start>
   </md-form-field>
   <table class="full-width">
     <td>
@@ -59,6 +59,14 @@
       </md-form-field>
     </td>
   </table>
+  <md-form-field *ngIf="mode === 'add'" class="full-width" floatPlaceholder="always">
+    <input #monsterInput mdInput placeholder="Monster" [mdAutocomplete]="auto">
+    <md-autocomplete #auto="mdAutocomplete" (optionSelected)="monsterSelected($event)">
+      <md-option *ngFor="let monster of monsters | monsterFilter:monsterInput.value" [value]="monster.name">
+        {{monster.name}}
+      </md-option>
+    </md-autocomplete>
+  </md-form-field>
   <ng-container *ngIf="mode === 'add'">
     <button type="submit" md-raised-button (click)="addCombatant()" [disabled]="!combatant.name || !combatant.combat.initiative" color="primary">
       <span>Add</span>

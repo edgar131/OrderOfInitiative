@@ -7,7 +7,7 @@ export class EncounterService {
   monsters: any[];
 
   constructor() {
-    this.monsters = this.monsters.filter(monster => {
+    this.monsters = MONSTERS.filter(monster => {
       return monster.name !== undefined;
     });
   }

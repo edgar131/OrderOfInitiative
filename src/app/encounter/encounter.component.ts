@@ -3,6 +3,7 @@ import {MD_DIALOG_DATA, MdDialog, MdDialogRef} from '@angular/material';
 import {ModifyHpDialogComponent} from '../modify-hp-dialog/modify-hp-dialog.component';
 import Utils from '../shared/util';
 import {Combatant} from '../shared/Combatant';
+import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
 
 
 @Component({
@@ -29,6 +30,9 @@ export class EncounterComponent implements OnInit {
   }
 
   nextCombatant() {
+    if (this.combatants.length <= 0) {
+      return;
+    }
     this.turnCount++;
     if (!this.activeCombatant) {
       this.activeCombatant = this.combatants[0];
@@ -66,8 +70,52 @@ export class EncounterComponent implements OnInit {
     this.combatantInfoNav.open();
   }
 
+  resetEncounter() {
+    this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        message: 'Are you sure you wish to reset the encounter?',
+        confirm_text: 'Reset'
+      }
+    }).afterClosed()
+      .subscribe(result => {
+        if (result) {
+          this.combatantInfoNav.close();
+          this.newCombatantNav.close();
+          this.infoCombatant = undefined;
+          this.activeCombatant = undefined;
+          this.turnCount = 0;
+          this.roundCount = 1;
+        }
+      });
+  }
+
+  clearEncounter() {
+    this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        message: 'Are you sure you wish to clear the encounter?',
+        confirm_text: 'Clear'
+      }
+    }).afterClosed()
+      .subscribe(result => {
+        if (result) {
+          this.combatantInfoNav.close();
+          this.newCombatantNav.close();
+          this.combatants = [];
+          this.infoCombatant = undefined;
+          this.activeCombatant = undefined;
+          this.turnCount = 0;
+          this.roundCount = 1;
+        }
+      });
+  }
+
   removeCombatant(combatant: Combatant) {
-    this.dialog.open(RemoveCombatantDialogComponent, {data: combatant}).afterClosed().subscribe(result => {
+    this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        message: ('Are you sure you wish to remove "' + combatant.name + '" from the encounter?'),
+        confirm_text: 'Remove'
+      }
+    }).afterClosed().subscribe(result => {
       if (result) {
         const idx: number = this.combatants.indexOf(combatant);
         const isCurrentCombatant: boolean = combatant === this.activeCombatant;
@@ -166,20 +214,5 @@ export class EncounterComponent implements OnInit {
     this.activeIndex = -1;
     this.roundCount = 1;
     this.turnCount = 0;
-  }
-}
-
-@Component({
-  selector: 'app-remove-combatant-dialog',
-  template: `
-    <h1 md-dialog-title>Are you sure you wish to remove {{data.name}} from the encounter?</h1>
-    <div md-dialog-actions>
-      <button md-raised-button color="primary" [md-dialog-close]="true">Remove</button>
-      <button md-raised-button color="warn" [md-dialog-close]="false">Cancel</button>
-    </div>
-  `,
-})
-export class RemoveCombatantDialogComponent {
-  constructor(@Inject(MD_DIALOG_DATA) public data: any) {
   }
 }

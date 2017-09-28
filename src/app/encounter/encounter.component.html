@@ -18,6 +18,12 @@
     <button mdTooltip="Add Party" md-icon-button (click)="newCombatantMode = 'party'; newCombatantNav.open()">
       <md-icon>group_add</md-icon>
     </button>
+    <button mdTooltip="Reset Encounter" md-icon-button (click)="resetEncounter()">
+      <md-icon>undo</md-icon>
+    </button>
+    <button mdTooltip="Clear Encounter" md-icon-button (click)="clearEncounter()">
+      <md-icon>remove_circle</md-icon>
+    </button>
   </md-toolbar>
 </header>
 <main flex>
@@ -61,10 +67,13 @@
         <md-divider></md-divider>
       </ng-container>
     </md-list>
-    <md-sidenav #combatantInfoNav mode="side" [opened]="infoCombatant" position="end" class="combatant-info-sidenav">
+    <md-sidenav #combatantInfoNav mode="side" position="end" class="combatant-info-sidenav">
       <ng-container *ngIf="infoCombatant">
         <app-edit-combatant-form [(combatant)]="infoCombatant" [mode]="combatantInfoMode"></app-edit-combatant-form>
       </ng-container>
+      <button md-raised-button color="warn" (click)="combatantInfoNav.close()">
+        <span>Close</span>
+      </button>
     </md-sidenav>
     <md-sidenav #newCombatantNav mode="over" opened="false" position="start" class="new-combatant-sidenav">
       <app-edit-combatant-form *ngIf="newCombatantMode === 'individual'" mode="add" (onAdd)="addCombatant($event);"
