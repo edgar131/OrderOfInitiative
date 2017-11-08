@@ -1,8 +1,12 @@
 <header>
   <md-toolbar color="primary">
-      <span>
-        Order of Initiative
-      </span>
+    <span>
+      Order of Initiative
+    </span>
+    <span class="toolbar-spacer"></span>
+    <a target="_blank" href="https://github.com/edgar131/OrderOfInitiative">
+      <md-icon svgIcon="github_circle"></md-icon>
+    </a>
   </md-toolbar>
   <md-toolbar color="accent">
     <div class="round-count">
@@ -79,7 +83,8 @@
       <app-edit-combatant-form *ngIf="newCombatantMode === 'individual'" mode="add" (onAdd)="addCombatant($event);"
                                (onCancel)="newCombatantNav.close()"></app-edit-combatant-form>
       <app-party-form *ngIf="newCombatantMode === 'party'" [combatants]="combatants"
-                      (onAdd)="addCombatants($event)" (onSave)="newCombatantNav.close()" (onCancel)="newCombatantNav.close()"></app-party-form>
+                      (onAdd)="addCombatants($event)" (onSave)="newCombatantNav.close()"
+                      (onCancel)="newCombatantNav.close()"></app-party-form>
     </md-sidenav>
   </md-sidenav-container>
   <button md-fab color="warn" class="next-combatant-fab" (click)="nextCombatant()">

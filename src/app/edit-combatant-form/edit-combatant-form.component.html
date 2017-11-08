@@ -5,57 +5,57 @@
   <table class="full-width">
     <td>
       <md-form-field floatPlaceholder="always">
-        <input name="initiative" mdInput placeholder="Initiative" [(ngModel)]="combatant.combat.initiative" required>
+        <input name="initiative" type="number" mdInput placeholder="Initiative" [(ngModel)]="combatant.combat.initiative" required>
       </md-form-field>
     </td>
     <td>
       <md-form-field floatPlaceholder="always">
-        <input name="ac" mdInput placeholder="Armor Class" [(ngModel)]="combatant.data.ac">
+        <input name="ac" type="number" mdInput placeholder="Armor Class" [(ngModel)]="combatant.data.ac">
       </md-form-field>
     </td>
   </table>
   <table class="full-width">
     <td>
       <md-form-field floatPlaceholder="always">
-        <input name="currentHP" mdInput placeholder="Current HP" [(ngModel)]="combatant.combat.hp">
+        <input name="currentHP" type="number" mdInput placeholder="Current HP" [(ngModel)]="combatant.combat.hp">
       </md-form-field>
     </td>
     <td><strong>/</strong></td>
     <td>
       <md-form-field floatPlaceholder="always">
-        <input name="maxHP" mdInput placeholder="Max HP" [(ngModel)]="combatant.data.maxhp">
+        <input name="maxHP" type="number" mdInput placeholder="Max HP" [(ngModel)]="combatant.data.maxhp">
       </md-form-field>
     </td>
   </table>
   <table class="full-width">
     <td>
       <md-form-field floatPlaceholder="always">
-        <input name="strength" mdInput placeholder="STR{{combatant.data.stats.str ? ' (' + calcModAsString(combatant.data.stats.str) + ')' : ''}}" [(ngModel)]="combatant.data.stats.str">
+        <input name="strength" type="number" mdInput placeholder="STR{{combatant.data.stats.str ? ' (' + calcModAsString(combatant.data.stats.str) + ')' : ''}}" [(ngModel)]="combatant.data.stats.str">
       </md-form-field>
     </td>
     <td>
       <md-form-field floatPlaceholder="always">
-        <input name="dexterity" mdInput placeholder="DEX{{combatant.data.stats.dex ? ' (' + calcModAsString(combatant.data.stats.dex) + ')' : ''}}" [(ngModel)]="combatant.data.stats.dex">
+        <input name="dexterity" type="number" mdInput placeholder="DEX{{combatant.data.stats.dex ? ' (' + calcModAsString(combatant.data.stats.dex) + ')' : ''}}" [(ngModel)]="combatant.data.stats.dex">
       </md-form-field>
     </td>
     <td>
       <md-form-field floatPlaceholder="always">
-        <input name="constitution" mdInput placeholder="CON{{combatant.data.stats.con ? ' (' + calcModAsString(combatant.data.stats.con) + ')' : ''}}" [(ngModel)]="combatant.data.stats.con">
+        <input name="constitution" type="number" mdInput placeholder="CON{{combatant.data.stats.con ? ' (' + calcModAsString(combatant.data.stats.con) + ')' : ''}}" [(ngModel)]="combatant.data.stats.con">
       </md-form-field>
     </td>
     <td>
       <md-form-field floatPlaceholder="always">
-        <input name="intelligence" mdInput placeholder="INT{{combatant.data.stats.int ? ' (' + calcModAsString(combatant.data.stats.int) + ')' : ''}}" [(ngModel)]="combatant.data.stats.int">
+        <input name="intelligence" type="number" mdInput placeholder="INT{{combatant.data.stats.int ? ' (' + calcModAsString(combatant.data.stats.int) + ')' : ''}}" [(ngModel)]="combatant.data.stats.int">
       </md-form-field>
     </td>
     <td>
       <md-form-field floatPlaceholder="always">
-        <input name="wisdom" mdInput placeholder="WIS{{combatant.data.stats.wis ? ' (' + calcModAsString(combatant.data.stats.wis) + ')' : ''}}" [(ngModel)]="combatant.data.stats.wis">
+        <input name="wisdom" type="number" mdInput placeholder="WIS{{combatant.data.stats.wis ? ' (' + calcModAsString(combatant.data.stats.wis) + ')' : ''}}" [(ngModel)]="combatant.data.stats.wis">
       </md-form-field>
     </td>
     <td>
       <md-form-field floatPlaceholder="always">
-        <input name="charisma" mdInput placeholder="CHA{{combatant.data.stats.cha ? ' (' + calcModAsString(combatant.data.stats.cha) + ')' : ''}}" [(ngModel)]="combatant.data.stats.cha">
+        <input name="charisma" type="number" mdInput placeholder="CHA{{combatant.data.stats.cha ? ' (' + calcModAsString(combatant.data.stats.cha) + ')' : ''}}" [(ngModel)]="combatant.data.stats.cha">
       </md-form-field>
     </td>
   </table>

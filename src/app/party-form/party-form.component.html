@@ -11,15 +11,15 @@
   <ng-container *ngIf="selectedParty && selectedParty.name">
     <table class="full-width">
       <tr *ngFor="let combatant of selectedParty.combatants; trackBy: combatant?.id; let index = index;">
-        <td width="50%">{{combatant.name}}</td>
-        <td>
+        <td>{{combatant.name}}</td>
+        <td style="width:60px">
           <md-form-field floatPlaceholder="always">
-            <input name="initiative" mdInput placeholder="Initiative" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedParty.combatants[index].combat.initiative" required>
+            <input name="initiative" type="number" mdInput placeholder="Initiative" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedParty.combatants[index].combat.initiative" required>
           </md-form-field>
         </td>
-        <td>
+        <td style="width:70px">
           <md-form-field floatPlaceholder="always">
-            <input name="currentHP" mdInput placeholder="Current HP" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedParty.combatants[index].combat.hp">
+            <input name="currentHP" type="number" mdInput placeholder="Current HP" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedParty.combatants[index].combat.hp">
           </md-form-field>
         </td>
         <td>/</td>

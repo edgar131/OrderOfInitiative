@@ -1,9 +1,11 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {MD_DIALOG_DATA, MdDialog, MdDialogRef} from '@angular/material';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MdDialog, MdIconRegistry} from '@angular/material';
 import {ModifyHpDialogComponent} from '../modify-hp-dialog/modify-hp-dialog.component';
 import Utils from '../shared/util';
 import {Combatant} from '../shared/Combatant';
-import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
+import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
+import {DomSanitizer} from '@angular/platform-browser';
+import {Http} from '@angular/http';
 
 
 @Component({
@@ -26,7 +28,8 @@ export class EncounterComponent implements OnInit {
   combatantInfoMode: string;
   newCombatantMode: string;
 
-  constructor(public dialog: MdDialog) {
+  constructor(public dialog: MdDialog, private iconRegistry: MdIconRegistry, private sanitizer: DomSanitizer) {
+    //iconRegistry.addSvgIcon('github_circle', sanitizer.bypassSecurityTrustResourceUrl('assets/github-circle.svg'));
   }
 
   nextCombatant() {
@@ -139,8 +142,8 @@ export class EncounterComponent implements OnInit {
 
   updateHP(combatant: Combatant) {
     this.dialog.open(ModifyHpDialogComponent).afterClosed().subscribe(result => {
-      if (result) {
-        combatant.combat.hp = combatant.combat.hp + result.heal - result.damage;
+      if (result && !isNaN(combatant.combat.hp)) {
+        combatant.combat.hp = +combatant.combat.hp + result.heal - result.damage;
       }
     });
   }
@@ -210,7 +213,7 @@ export class EncounterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.combatants = this.mockCombatants();
+    // this.combatants = this.mockCombatants();
     this.activeIndex = -1;
     this.roundCount = 1;
     this.turnCount = 0;
