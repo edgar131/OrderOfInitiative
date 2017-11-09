@@ -39,9 +39,7 @@
             {{combatant.name}}
             <span class="hp" (click)="updateHP(combatant)" [class.hp-warning]="combatant.combat.hp <= 0">({{combatant.combat.hp}}/{{combatant.data.maxhp}})</span>
           </h2>
-          <p class="combatant-initiative" matLine>INIT: {{combatant.combat.initiative}}
-            <ng-container *ngIf="combatant.data.ac">, AC: {{combatant.data.ac}}</ng-container>
-          </p>
+          <p class="combatant-initiative" matLine>INIT: {{combatant.combat.initiative}}<ng-container *ngIf="combatant.data.ac">, AC: {{combatant.data.ac}}</ng-container></p>
           <p atLine class="combatant-stats">
             <span *ngFor="let stat of objectKeys(combatant.data.stats)" [hidden]="stat !== undefined">
               {{stat | uppercase}}: {{calcModAsString(combatant.data.stats[stat])}}
