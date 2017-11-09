@@ -5,8 +5,6 @@ import Utils from '../shared/util';
 import {Combatant} from '../shared/Combatant';
 import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
 import {DomSanitizer} from '@angular/platform-browser';
-import {Http} from '@angular/http';
-
 
 @Component({
   selector: 'app-encounter',
@@ -29,7 +27,7 @@ export class EncounterComponent implements OnInit {
   newCombatantMode: string;
 
   constructor(public dialog: MatDialog, private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {
-    // iconRegistry.addSvgIcon('github_circle', sanitizer.bypassSecurityTrustResourceUrl('assets/github-circle.svg'));
+    iconRegistry.addSvgIcon('github_circle', sanitizer.bypassSecurityTrustResourceUrl('assets/github-circle.svg'));
   }
 
   nextCombatant() {

@@ -14,6 +14,7 @@ import { EditCombatantFormComponent } from './edit-combatant-form/edit-combatant
 import { PartyFormComponent } from './party-form/party-form.component';
 import { MonsterFilterPipe } from './edit-combatant-form/monster-filter.pipe';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
     MatButtonModule,

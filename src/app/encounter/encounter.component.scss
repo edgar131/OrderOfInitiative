@@ -6,6 +6,7 @@ header {
     flex: 1 1 auto;
   }
 }
+
 main {
   position: absolute;
   top: 128px;
@@ -63,4 +64,10 @@ main {
   bottom: 20px;
   right: 20px;
   z-index: 1;
+}
+
+.github-icon {
+  color: black;
+  height: 30px;
+  width: 30px;
 }
