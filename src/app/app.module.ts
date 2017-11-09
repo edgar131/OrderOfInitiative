@@ -4,9 +4,9 @@ import { NgModule} from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { EncounterComponent } from './encounter/encounter.component';
-import { MdButtonModule, MdDialogModule, MdIconModule, MdToolbarModule,
-         MdTooltipModule, MdAutocompleteModule, MdListModule, MdMenuModule,
-         MdInputModule, MdSidenavModule, MdSelectModule} from '@angular/material';
+import { MatButtonModule, MatDialogModule, MatIconModule, MatToolbarModule,
+         MatTooltipModule, MatAutocompleteModule, MatListModule, MatMenuModule,
+         MatInputModule, MatSidenavModule, MatSelectModule} from '@angular/material';
 import { InitiativeOrderPipe } from './encounter/initiative-order-pipe';
 import { FormsModule } from '@angular/forms';
 import { ModifyHpDialogComponent } from './modify-hp-dialog/modify-hp-dialog.component';
@@ -30,17 +30,17 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
-    MdButtonModule,
-    MdDialogModule,
-    MdIconModule,
-    MdTooltipModule,
-    MdToolbarModule,
-    MdAutocompleteModule,
-    MdListModule,
-    MdMenuModule,
-    MdInputModule,
-    MdSidenavModule,
-    MdSelectModule
+    MatButtonModule,
+    MatDialogModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatToolbarModule,
+    MatAutocompleteModule,
+    MatListModule,
+    MatMenuModule,
+    MatInputModule,
+    MatSidenavModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent],

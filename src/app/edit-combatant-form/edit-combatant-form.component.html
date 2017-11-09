@@ -1,77 +1,79 @@
 <form #combatantInfoForm>
-  <md-form-field class="full-width">
-    <input name="name" mdInput placeholder="Name" [(ngModel)]="combatant.name" required cdk-focus-region-start>
-  </md-form-field>
+  <mat-form-field class="full-width">
+    <input name="name" matInput placeholder="Name" [(ngModel)]="combatant.name" required cdkFocusRegionstart>
+  </mat-form-field>
   <table class="full-width">
     <td>
-      <md-form-field floatPlaceholder="always">
-        <input name="initiative" type="number" mdInput placeholder="Initiative" [(ngModel)]="combatant.combat.initiative" required>
-      </md-form-field>
+      <mat-form-field floatPlaceholder="always">
+        <input name="initiative" type="number" matInput placeholder="Initiative" [(ngModel)]="combatant.combat.initiative" required>
+      </mat-form-field>
     </td>
     <td>
-      <md-form-field floatPlaceholder="always">
-        <input name="ac" type="number" mdInput placeholder="Armor Class" [(ngModel)]="combatant.data.ac">
-      </md-form-field>
+      <mat-form-field floatPlaceholder="always">
+        <input name="ac" type="number" matInput placeholder="Armor Class" [(ngModel)]="combatant.data.ac">
+      </mat-form-field>
     </td>
   </table>
   <table class="full-width">
     <td>
-      <md-form-field floatPlaceholder="always">
-        <input name="currentHP" type="number" mdInput placeholder="Current HP" [(ngModel)]="combatant.combat.hp">
-      </md-form-field>
+      <mat-form-field floatPlaceholder="always">
+        <input name="currentHP" type="number" matInput placeholder="Current HP" [(ngModel)]="combatant.combat.hp">
+      </mat-form-field>
     </td>
     <td><strong>/</strong></td>
     <td>
-      <md-form-field floatPlaceholder="always">
-        <input name="maxHP" type="number" mdInput placeholder="Max HP" [(ngModel)]="combatant.data.maxhp">
-      </md-form-field>
+      <mat-form-field floatPlaceholder="always">
+        <input name="maxHP" type="number" matInput placeholder="Max HP" [(ngModel)]="combatant.data.maxhp">
+      </mat-form-field>
     </td>
   </table>
-  <table class="full-width">
-    <td>
-      <md-form-field floatPlaceholder="always">
-        <input name="strength" type="number" mdInput placeholder="STR{{combatant.data.stats.str ? ' (' + calcModAsString(combatant.data.stats.str) + ')' : ''}}" [(ngModel)]="combatant.data.stats.str">
-      </md-form-field>
-    </td>
-    <td>
-      <md-form-field floatPlaceholder="always">
-        <input name="dexterity" type="number" mdInput placeholder="DEX{{combatant.data.stats.dex ? ' (' + calcModAsString(combatant.data.stats.dex) + ')' : ''}}" [(ngModel)]="combatant.data.stats.dex">
-      </md-form-field>
-    </td>
-    <td>
-      <md-form-field floatPlaceholder="always">
-        <input name="constitution" type="number" mdInput placeholder="CON{{combatant.data.stats.con ? ' (' + calcModAsString(combatant.data.stats.con) + ')' : ''}}" [(ngModel)]="combatant.data.stats.con">
-      </md-form-field>
-    </td>
-    <td>
-      <md-form-field floatPlaceholder="always">
-        <input name="intelligence" type="number" mdInput placeholder="INT{{combatant.data.stats.int ? ' (' + calcModAsString(combatant.data.stats.int) + ')' : ''}}" [(ngModel)]="combatant.data.stats.int">
-      </md-form-field>
-    </td>
-    <td>
-      <md-form-field floatPlaceholder="always">
-        <input name="wisdom" type="number" mdInput placeholder="WIS{{combatant.data.stats.wis ? ' (' + calcModAsString(combatant.data.stats.wis) + ')' : ''}}" [(ngModel)]="combatant.data.stats.wis">
-      </md-form-field>
-    </td>
-    <td>
-      <md-form-field floatPlaceholder="always">
-        <input name="charisma" type="number" mdInput placeholder="CHA{{combatant.data.stats.cha ? ' (' + calcModAsString(combatant.data.stats.cha) + ')' : ''}}" [(ngModel)]="combatant.data.stats.cha">
-      </md-form-field>
-    </td>
+  <table class="stats full-width">
+    <tr>
+      <td>
+        <mat-form-field floatPlaceholder="always">
+          <input name="strength" type="number" matInput placeholder="STR{{combatant.data.stats.str ? ' (' + calcModAsString(combatant.data.stats.str) + ')' : ''}}" [(ngModel)]="combatant.data.stats.str">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field floatPlaceholder="always">
+          <input name="dexterity" type="number" matInput placeholder="DEX{{combatant.data.stats.dex ? ' (' + calcModAsString(combatant.data.stats.dex) + ')' : ''}}" [(ngModel)]="combatant.data.stats.dex">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field floatPlaceholder="always">
+          <input name="constitution" type="number" matInput placeholder="CON{{combatant.data.stats.con ? ' (' + calcModAsString(combatant.data.stats.con) + ')' : ''}}" [(ngModel)]="combatant.data.stats.con">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field floatPlaceholder="always">
+          <input name="intelligence" type="number" matInput placeholder="INT{{combatant.data.stats.int ? ' (' + calcModAsString(combatant.data.stats.int) + ')' : ''}}" [(ngModel)]="combatant.data.stats.int">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field floatPlaceholder="always">
+          <input name="wisdom" type="number" matInput placeholder="WIS{{combatant.data.stats.wis ? ' (' + calcModAsString(combatant.data.stats.wis) + ')' : ''}}" [(ngModel)]="combatant.data.stats.wis">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field floatPlaceholder="always">
+          <input name="charisma" type="number" matInput placeholder="CHA{{combatant.data.stats.cha ? ' (' + calcModAsString(combatant.data.stats.cha) + ')' : ''}}" [(ngModel)]="combatant.data.stats.cha">
+        </mat-form-field>
+      </td>
+    </tr>
   </table>
-  <md-form-field *ngIf="mode === 'add'" class="full-width" floatPlaceholder="always">
-    <input #monsterInput mdInput placeholder="Monster" [mdAutocomplete]="auto">
-    <md-autocomplete #auto="mdAutocomplete" (optionSelected)="monsterSelected($event)">
-      <md-option *ngFor="let monster of monsters | monsterFilter:monsterInput.value" [value]="monster.name">
+  <mat-form-field *ngIf="mode === 'add'" class="full-width" floatPlaceholder="always">
+    <input #monsterInput matInput placeholder="Monster" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="monsterSelected($event)">
+      <mat-option *ngFor="let monster of monsters | monsterFilter:monsterInput.value" [value]="monster.name">
         {{monster.name}}
-      </md-option>
-    </md-autocomplete>
-  </md-form-field>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
   <ng-container *ngIf="mode === 'add'">
-    <button type="submit" md-raised-button (click)="addCombatant()" [disabled]="!combatant.name || !combatant.combat.initiative" color="primary">
+    <button type="submit" mat-raised-button (click)="addCombatant()" [disabled]="!combatant.name || !combatant.combat.initiative" color="primary">
       <span>Add</span>
     </button>
-    <button md-raised-button (click)="cancel()" color="warn">
+    <button mat-raised-button (click)="cancel()" color="warn">
       <span>Cancel</span>
     </button>
   </ng-container>

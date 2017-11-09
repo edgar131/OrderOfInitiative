@@ -14,7 +14,7 @@ main {
   right: 0;
   overflow-y: auto;
 
-  md-sidenav-container, md-list {
+  mat-sidenav-container, mat-list {
     margin: 0;
     width: 100%;
     height: 100%;
@@ -33,7 +33,7 @@ main {
     border-right: 2px solid darkgray;
   }
 
-  md-list {
+  mat-list {
     padding-top: 0;
   }
 }
@@ -62,4 +62,5 @@ main {
   position: fixed;
   bottom: 20px;
   right: 20px;
+  z-index: 1;
 }

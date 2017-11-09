@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
 import {Party} from '../shared/Party';
 import {Combatant} from '../shared/Combatant';
-import {MD_DIALOG_DATA, MdDialog} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig} from '@angular/material';
 import Utils from '../shared/util';
-import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
+import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-party-form',
@@ -21,7 +21,7 @@ export class PartyFormComponent implements OnInit {
   newPartyName: string;
   parties: Party[] = [];
 
-  constructor(public dialog: MdDialog) {
+  constructor(public dialog: MatDialog) {
   }
 
   save() {
@@ -54,12 +54,12 @@ export class PartyFormComponent implements OnInit {
   }
 
   delete() {
-    this.dialog.open(ConfirmationDialogComponent, {
-      data: {
-        message: 'Are you sure you wish to delete the party: "' + this.selectedParty.name + '"?',
-        confirm_text: 'Delete'
-      }
-    }).afterClosed().subscribe(result => {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      message: 'Are you sure you wish to delete the party: "' + this.selectedParty.name + '"?',
+      confirm_text: 'Delete'
+    };
+    this.dialog.open(ConfirmationDialogComponent, dialogConfig).afterClosed().subscribe(result => {
       if (result) {
         this.parties.splice(this.parties.indexOf(this.selectedParty), 1);
         localStorage.setItem(PartyFormComponent.PARTIES_KEY, JSON.stringify(this.parties));

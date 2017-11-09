@@ -1,14 +1,14 @@
-<div md-dialog-content>
-  <md-form-field>
+<div mat-dialog-content>
+  <mat-form-field>
     <h3>Damage</h3>
-    <input mdInput type="number" [(ngModel)]="damage">
-  </md-form-field>
-  <md-form-field>
+    <input matInput type="number" [(ngModel)]="damage">
+  </mat-form-field>
+  <mat-form-field>
     <h3>Heal</h3>
-    <input mdInput type="number" [(ngModel)]="heal">
-  </md-form-field>
+    <input matInput type="number" [(ngModel)]="heal">
+  </mat-form-field>
 </div>
-<div md-dialog-actions>
-  <button md-raised-button color="primary" (click)="onSaveClick()">Save</button>
-  <button md-raised-button md-dialog-close color="warn">Cancel</button>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="onSaveClick()">Save</button>
+  <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
 </div>

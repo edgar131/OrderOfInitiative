@@ -1,26 +1,28 @@
 <form #partyForm>
-  <md-select class="full-width" placeholder="Select Party" [(ngModel)]="selectedParty" name="party">
-    <md-option value="null">Create New Party</md-option>
-    <md-option *ngFor="let party of parties" [value]="party">
-      {{party.name}}
-    </md-option>
-  </md-select>
-  <md-form-field class="full-width" *ngIf="selectedParty === 'null'">
-    <input mdInput type="text" placeholder="New Party Name" [(ngModel)]="newPartyName" name="partyName">
-  </md-form-field>
+  <mat-form-field class="full-width">
+    <mat-select placeholder="Select Party" [(ngModel)]="selectedParty" name="party">
+      <mat-option value="null">Create New Party</mat-option>
+      <mat-option *ngFor="let party of parties" [value]="party">
+        {{party.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="full-width" *ngIf="selectedParty === 'null'">
+    <input matInput type="text" placeholder="New Party Name" [(ngModel)]="newPartyName" name="partyName">
+  </mat-form-field>
   <ng-container *ngIf="selectedParty && selectedParty.name">
     <table class="full-width">
       <tr *ngFor="let combatant of selectedParty.combatants; trackBy: combatant?.id; let index = index;">
         <td>{{combatant.name}}</td>
         <td style="width:60px">
-          <md-form-field floatPlaceholder="always">
-            <input name="initiative" type="number" mdInput placeholder="Initiative" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedParty.combatants[index].combat.initiative" required>
-          </md-form-field>
+          <mat-form-field floatPlaceholder="always">
+            <input name="initiative" type="number" matInput placeholder="Initiative" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedParty.combatants[index].combat.initiative" required>
+          </mat-form-field>
         </td>
         <td style="width:70px">
-          <md-form-field floatPlaceholder="always">
-            <input name="currentHP" type="number" mdInput placeholder="Current HP" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedParty.combatants[index].combat.hp">
-          </md-form-field>
+          <mat-form-field floatPlaceholder="always">
+            <input name="currentHP" type="number" matInput placeholder="Current HP" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedParty.combatants[index].combat.hp">
+          </mat-form-field>
         </td>
         <td>/</td>
         <td>{{combatant.data.maxhp ? combatant.data.maxhp : '?'}}</td>
@@ -29,20 +31,20 @@
   </ng-container>
   <div>
     <ng-container *ngIf="selectedParty && selectedParty.name">
-      <button md-raised-button color="primary" (click)="add()">
+      <button mat-raised-button color="primary" (click)="add()">
         Add
       </button>
-      <button md-raised-button color="primary" [disabled]="combatants.length <= 0" (click)="overwrite()">
+      <button mat-raised-button color="primary" [disabled]="combatants.length <= 0" (click)="overwrite()">
         Overwrite
       </button>
-      <button md-raised-button color="accent" (click)="delete()">
+      <button mat-raised-button color="accent" (click)="delete()">
         Delete
       </button>
     </ng-container>
-    <button md-raised-button color="primary" [disabled]="!newPartyName || combatants.length <= 0" (click)="save()" *ngIf="selectedParty === 'null'">
+    <button mat-raised-button color="primary" [disabled]="!newPartyName || combatants.length <= 0" (click)="save()" *ngIf="selectedParty === 'null'">
       Save
     </button>
-    <button md-raised-button color="warn" (click)="cancel()">
+    <button mat-raised-button color="warn" (click)="cancel()">
       Cancel
     </button>
   </div>

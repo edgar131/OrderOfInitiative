@@ -1,14 +1,14 @@
 <header>
-  <md-toolbar color="primary">
+  <mat-toolbar color="primary">
     <span>
       Order of Initiative
     </span>
     <span class="toolbar-spacer"></span>
     <a target="_blank" href="https://github.com/edgar131/OrderOfInitiative">
-      <md-icon svgIcon="github_circle"></md-icon>
+      <mat-icon svgIcon="github_circle"></mat-icon>
     </a>
-  </md-toolbar>
-  <md-toolbar color="accent">
+  </mat-toolbar>
+  <mat-toolbar color="accent">
     <div class="round-count">
       Round: {{roundCount}}
     </div>
@@ -16,78 +16,78 @@
       Turn: {{turnCount}}
     </div>
     <span class="toolbar-spacer"></span>
-    <button mdTooltip="Add Combatant" md-icon-button (click)="newCombatantMode = 'individual'; newCombatantNav.open()">
-      <md-icon>person_add</md-icon>
+    <button mdTooltip="Add Combatant" mat-icon-button (click)="newCombatantMode = 'individual'; newCombatantNav.open()">
+      <mat-icon>person_add</mat-icon>
     </button>
-    <button mdTooltip="Add Party" md-icon-button (click)="newCombatantMode = 'party'; newCombatantNav.open()">
-      <md-icon>group_add</md-icon>
+    <button mdTooltip="Add Party" mat-icon-button (click)="newCombatantMode = 'party'; newCombatantNav.open()">
+      <mat-icon>group_add</mat-icon>
     </button>
-    <button mdTooltip="Reset Encounter" md-icon-button (click)="resetEncounter()">
-      <md-icon>undo</md-icon>
+    <button mdTooltip="Reset Encounter" mat-icon-button (click)="resetEncounter()">
+      <mat-icon>undo</mat-icon>
     </button>
-    <button mdTooltip="Clear Encounter" md-icon-button (click)="clearEncounter()">
-      <md-icon>remove_circle</md-icon>
+    <button mdTooltip="Clear Encounter" mat-icon-button (click)="clearEncounter()">
+      <mat-icon>remove_circle</mat-icon>
     </button>
-  </md-toolbar>
+  </mat-toolbar>
 </header>
 <main flex>
-  <md-sidenav-container>
-    <md-list>
+  <mat-sidenav-container>
+    <mat-list>
       <ng-container *ngFor="let combatant of combatants | initiativeOrder; let index = index;">
-        <md-list-item class="combatant" [class.active]="combatant === activeCombatant">
-          <h2 class="combatant-name" mdLine>
+        <mat-list-item class="combatant" [class.active]="combatant === activeCombatant">
+          <h2 class="combatant-name" matLine>
             {{combatant.name}}
             <span class="hp" (click)="updateHP(combatant)" [class.hp-warning]="combatant.combat.hp <= 0">({{combatant.combat.hp}}/{{combatant.data.maxhp}})</span>
           </h2>
-          <p class="combatant-initiative" mdLine>INIT: {{combatant.combat.initiative}}
+          <p class="combatant-initiative" matLine>INIT: {{combatant.combat.initiative}}
             <ng-container *ngIf="combatant.data.ac">, AC: {{combatant.data.ac}}</ng-container>
           </p>
-          <p mdLine class="combatant-stats">
+          <p atLine class="combatant-stats">
             <span *ngFor="let stat of objectKeys(combatant.data.stats)" [hidden]="stat !== undefined">
               {{stat | uppercase}}: {{calcModAsString(combatant.data.stats[stat])}}
             </span>
           </p>
-          <button md-icon-button (click)="viewCombatant(combatant)">
-            <md-icon>search</md-icon>
+          <button mat-icon-button (click)="viewCombatant(combatant)">
+            <mat-icon>search</mat-icon>
           </button>
-          <button md-icon-button [mdMenuTriggerFor]="combatantMenu">
-            <md-icon>more_vert</md-icon>
+          <button mat-icon-button [matMenuTriggerFor]="combatantMenu">
+            <mat-icon>more_vert</mat-icon>
           </button>
-          <md-menu #combatantMenu="mdMenu">
-            <button md-menu-item (click)="editCombatant(combatant)">
-              <md-icon>mode_edit</md-icon>
+          <mat-menu #combatantMenu="matMenu">
+            <button mat-menu-item (click)="editCombatant(combatant)">
+              <mat-icon>mode_edit</mat-icon>
               <span>Edit</span>
             </button>
-            <button md-menu-item (click)="removeCombatant(combatant)">
-              <md-icon>close</md-icon>
+            <button mat-menu-item (click)="removeCombatant(combatant)">
+              <mat-icon>close</mat-icon>
               <span>Remove</span>
             </button>
-            <button md-menu-item (click)="cloneCombatant(combatant)">
-              <md-icon>content_copy</md-icon>
+            <button mat-menu-item (click)="cloneCombatant(combatant)">
+              <mat-icon>content_copy</mat-icon>
               <span>Clone</span>
             </button>
-          </md-menu>
-        </md-list-item>
-        <md-divider></md-divider>
+          </mat-menu>
+        </mat-list-item>
+        <mat-divider></mat-divider>
       </ng-container>
-    </md-list>
-    <md-sidenav #combatantInfoNav mode="side" position="end" class="combatant-info-sidenav">
+    </mat-list>
+    <mat-sidenav #combatantInfoNav mode="side" position="end" class="combatant-info-sidenav">
       <ng-container *ngIf="infoCombatant">
         <app-edit-combatant-form [(combatant)]="infoCombatant" [mode]="combatantInfoMode"></app-edit-combatant-form>
       </ng-container>
-      <button md-raised-button color="warn" (click)="combatantInfoNav.close()">
+      <button mat-raised-button color="warn" (click)="combatantInfoNav.close()">
         <span>Close</span>
       </button>
-    </md-sidenav>
-    <md-sidenav #newCombatantNav mode="over" opened="false" position="start" class="new-combatant-sidenav">
+    </mat-sidenav>
+    <mat-sidenav #newCombatantNav mode="over" opened="false" position="start" class="new-combatant-sidenav">
       <app-edit-combatant-form *ngIf="newCombatantMode === 'individual'" mode="add" (onAdd)="addCombatant($event);"
                                (onCancel)="newCombatantNav.close()"></app-edit-combatant-form>
       <app-party-form *ngIf="newCombatantMode === 'party'" [combatants]="combatants"
                       (onAdd)="addCombatants($event)" (onSave)="newCombatantNav.close()"
                       (onCancel)="newCombatantNav.close()"></app-party-form>
-    </md-sidenav>
-  </md-sidenav-container>
-  <button md-fab color="warn" class="next-combatant-fab" (click)="nextCombatant()">
-    <md-icon>play_arrow</md-icon>
+    </mat-sidenav>
+  </mat-sidenav-container>
+  <button mat-fab color="warn" class="next-combatant-fab" (click)="nextCombatant()">
+    <mat-icon>play_arrow</mat-icon>
   </button>
 </main>

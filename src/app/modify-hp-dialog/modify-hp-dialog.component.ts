@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MdDialogRef} from '@angular/material';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-modify-hp-dialog',
@@ -11,7 +11,7 @@ export class ModifyHpDialogComponent implements OnInit {
   damage: number;
   heal: number;
 
-  constructor(public dialogRef: MdDialogRef<ModifyHpDialogComponent>) {
+  constructor(public dialogRef: MatDialogRef<ModifyHpDialogComponent>) {
   }
 
   onSaveClick() {

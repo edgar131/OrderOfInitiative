@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MdDialog, MdIconRegistry} from '@angular/material';
+import {MatDialog, MatDialogConfig, MatIconRegistry} from '@angular/material';
 import {ModifyHpDialogComponent} from '../modify-hp-dialog/modify-hp-dialog.component';
 import Utils from '../shared/util';
 import {Combatant} from '../shared/Combatant';
@@ -28,8 +28,8 @@ export class EncounterComponent implements OnInit {
   combatantInfoMode: string;
   newCombatantMode: string;
 
-  constructor(public dialog: MdDialog, private iconRegistry: MdIconRegistry, private sanitizer: DomSanitizer) {
-    //iconRegistry.addSvgIcon('github_circle', sanitizer.bypassSecurityTrustResourceUrl('assets/github-circle.svg'));
+  constructor(public dialog: MatDialog, private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {
+    // iconRegistry.addSvgIcon('github_circle', sanitizer.bypassSecurityTrustResourceUrl('assets/github-circle.svg'));
   }
 
   nextCombatant() {
@@ -74,12 +74,12 @@ export class EncounterComponent implements OnInit {
   }
 
   resetEncounter() {
-    this.dialog.open(ConfirmationDialogComponent, {
-      data: {
-        message: 'Are you sure you wish to reset the encounter?',
-        confirm_text: 'Reset'
-      }
-    }).afterClosed()
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      message: 'Are you sure you wish to reset the encounter?',
+      confirm_text: 'Reset'
+    };
+    this.dialog.open(ConfirmationDialogComponent, dialogConfig).afterClosed()
       .subscribe(result => {
         if (result) {
           this.combatantInfoNav.close();
@@ -93,12 +93,12 @@ export class EncounterComponent implements OnInit {
   }
 
   clearEncounter() {
-    this.dialog.open(ConfirmationDialogComponent, {
-      data: {
-        message: 'Are you sure you wish to clear the encounter?',
-        confirm_text: 'Clear'
-      }
-    }).afterClosed()
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      message: 'Are you sure you wish to clear the encounter?',
+      confirm_text: 'Clear'
+    };
+    this.dialog.open(ConfirmationDialogComponent, dialogConfig).afterClosed()
       .subscribe(result => {
         if (result) {
           this.combatantInfoNav.close();
@@ -113,12 +113,12 @@ export class EncounterComponent implements OnInit {
   }
 
   removeCombatant(combatant: Combatant) {
-    this.dialog.open(ConfirmationDialogComponent, {
-      data: {
-        message: ('Are you sure you wish to remove "' + combatant.name + '" from the encounter?'),
-        confirm_text: 'Remove'
-      }
-    }).afterClosed().subscribe(result => {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      message: ('Are you sure you wish to remove "' + combatant.name + '" from the encounter?'),
+      confirm_text: 'Remove'
+    };
+    this.dialog.open(ConfirmationDialogComponent, dialogConfig).afterClosed().subscribe(result => {
       if (result) {
         const idx: number = this.combatants.indexOf(combatant);
         const isCurrentCombatant: boolean = combatant === this.activeCombatant;
