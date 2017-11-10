@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { EncounterComponent } from './encounter/encounter.component';
 import { MatButtonModule, MatDialogModule, MatIconModule, MatToolbarModule,
          MatTooltipModule, MatAutocompleteModule, MatListModule, MatMenuModule,
-         MatInputModule, MatSidenavModule, MatSelectModule} from '@angular/material';
+         MatInputModule, MatSidenavModule, MatSelectModule, MatCheckboxModule} from '@angular/material';
 import { InitiativeOrderPipe } from './encounter/initiative-order-pipe';
 import { FormsModule } from '@angular/forms';
 import { ModifyHpDialogComponent } from './modify-hp-dialog/modify-hp-dialog.component';
@@ -42,7 +42,8 @@ import {HttpClientModule} from '@angular/common/http';
     MatMenuModule,
     MatInputModule,
     MatSidenavModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -46,6 +46,7 @@ export class EncounterComponent implements OnInit {
         this.activeCombatant = this.combatants[currentIndex + 1];
       }
     }
+    this.activeCombatant.combat.reaction = false;
     this.infoCombatant = this.activeCombatant;
   }
 
@@ -152,7 +153,8 @@ export class EncounterComponent implements OnInit {
       name: 'Vrell',
       combat: {
         initiative: 10,
-        hp: 22
+        hp: 22,
+        reaction: false
       },
       data: {
         ac: 16,
